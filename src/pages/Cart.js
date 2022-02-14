@@ -107,6 +107,7 @@ class Cart extends React.Component {
               type="button"
               name="go-to-close-purchase"
               className="btn-purchase"
+              data-testid="checkout-products"
             >
               Finalizar Compra
             </button>
