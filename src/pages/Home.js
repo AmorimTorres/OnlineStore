@@ -19,6 +19,10 @@ class Home extends React.Component {
 
   async componentDidMount() {
     await this.getCategory();
+    const count = JSON.parse(localStorage.getItem('Counter'));
+    this.setState({
+      counterListCart: count || 0,
+    });
   }
 
   getCategory = async () => {
@@ -55,8 +59,9 @@ class Home extends React.Component {
       listCart: [...prevState.listCart, productInfo],
       counterListCart: prevState.counterListCart + 1,
     }), () => {
-      const { listCart } = this.state;
+      const { listCart, counterListCart } = this.state;
       localStorage.setItem('cartItems', JSON.stringify(listCart));
+      localStorage.setItem('Counter', JSON.stringify(counterListCart));
     });
   }
 
@@ -72,7 +77,9 @@ class Home extends React.Component {
       counterListCart: prevState.counterListCart + 1,
     }),
     () => {
+      const { counterListCart } = this.state;
       localStorage.setItem('cartItems', JSON.stringify(newList));
+      localStorage.setItem('Counter', JSON.stringify(counterListCart));
     });
   }
 

@@ -21,7 +21,13 @@ class Header extends Component {
           <button type="button" className="btn-cart">
             <BsCart3 size={ 25 } color="white" />
           </button>
-          <span className="count-cart">{counterListCart}</span>
+          <span
+            className="count-cart"
+            data-testid="shopping-cart-size"
+          >
+            {+counterListCart}
+
+          </span>
         </Link>
 
       </div>

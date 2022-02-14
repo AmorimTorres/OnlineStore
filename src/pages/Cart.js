@@ -9,6 +9,7 @@ class Cart extends React.Component {
   state = {
     totalCartValue: 0,
     results: [],
+    counterListCart: 0,
   }
 
   componentDidMount() {
@@ -17,8 +18,10 @@ class Cart extends React.Component {
 
   getProductsLocalStorage = () => {
     const localStorageItems = localStorage.getItem('cartItems');
+    const localStorageCounter = localStorage.getItem('Counter');
     this.setState({
       results: localStorageItems ? JSON.parse(localStorageItems) : [],
+      counterListCart: JSON.parse(localStorageCounter),
     }, () => { this.calculateTotalCartValue(); });
   }
 
@@ -70,10 +73,13 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { results, totalCartValue } = this.state;
+    const { results, totalCartValue, counterListCart } = this.state;
+    console.log(typeof counterListCart);
     return (
       <div className="page-cart">
-        <Header />
+        <Header
+          counterListCart={ counterListCart }
+        />
         <div className="cart-container">
           <h1>Meu carrinho</h1>
           {results.length > 0 ? (
@@ -98,6 +104,7 @@ class Cart extends React.Component {
               Seu carrinho está vazio
             </p>
           )}
+
           <h3>
             {`Valor total: ${totalCartValue
               .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}
@@ -107,6 +114,7 @@ class Cart extends React.Component {
               type="button"
               name="go-to-close-purchase"
               className="btn-purchase"
+              data-testid="checkout-products"
             >
               Finalizar Compra
             </button>
