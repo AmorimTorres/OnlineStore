@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MdPayment } from 'react-icons/md';
 import { RiBarcodeFill } from 'react-icons/ri';
+import FinalCard from '../Components/FinalCard';
 
 const uf = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF',
   'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ',
@@ -18,11 +19,20 @@ class ClosePurchase extends Component {
 
   render() {
     const { value } = this.state;
+    const localStorageItems = JSON.parse(localStorage.getItem('cartItems'));
     return (
       <form>
         <fieldset>
           <legend>Revise seus Produtos</legend>
-          <span>*LISTAR PRODUTOS...*</span>
+          {localStorageItems.map(({ thumbnail, price, title, itemCounter, id }) => (
+            <FinalCard
+              key={ id }
+              image={ thumbnail }
+              price={ price }
+              title={ title }
+              itemCounter={ itemCounter }
+            />
+          ))}
           <p>Total: R$</p>
         </fieldset>
         <fieldset>

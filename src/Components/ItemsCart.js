@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   MdRemoveCircleOutline,
   MdAddCircleOutline,
@@ -14,7 +15,8 @@ class ItemsCart extends Component {
       itemCounter,
       addQtd,
       subQtd,
-      removeProduct } = this.props;
+      removeProduct,
+      id } = this.props;
     return (
       <div className="items-cart-container">
         <button
@@ -26,7 +28,9 @@ class ItemsCart extends Component {
           <MdOutlineDeleteForever size="1.5rem" color="rgb(102, 102, 102)" />
         </button>
         <div className="cart-img">
-          <img src={ image } alt="imagem do produto" />
+          <Link to={ `/productdetails/${id}` }>
+            <img src={ image } alt="imagem do produto" />
+          </Link>
         </div>
         <p data-testid="shopping-cart-product-name" className="cart-name">{title}</p>
         <div className="btn-increment-wrapper">
@@ -66,7 +70,7 @@ ItemsCart.propTypes = {
   addQtd: PropTypes.func.isRequired,
   subQtd: PropTypes.func.isRequired,
   removeProduct: PropTypes.func.isRequired,
-
+  id: PropTypes.string.isRequired,
 };
 
 export default ItemsCart;

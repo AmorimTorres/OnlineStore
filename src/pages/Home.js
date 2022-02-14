@@ -43,11 +43,9 @@ class Home extends React.Component {
     const { searchValue } = this.state;
     const { results } = await api.getProductsFromAndQuery(searchValue);
     const categoryResultById = await api.getProductsFromCategory(target.id);
-    if (target.type === 'button') {
-      value = results;
-    } else if (target.type === 'radio') {
+    if (target.type === 'radio') {
       value = categoryResultById;
-    }
+    } else value = results;
     this.setState({
       results: value,
       isLength: true,

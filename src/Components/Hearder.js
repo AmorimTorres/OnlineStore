@@ -10,8 +10,10 @@ class Header extends Component {
     return (
       <div className="header-container">
         <div className="logo-header">
-          <img src="../logo.svg" alt="logo" />
-          <h1>trybeStore</h1>
+          <Link to="./">
+            <img src="../logo.svg" alt="logo" />
+            <h1>trybeStore</h1>
+          </Link>
         </div>
         <Link
           to={ { pathname: '/cart' } }
