@@ -17,18 +17,21 @@ class ProductDetails extends React.Component {
     const { match: { params: { id } } } = this.props;
     const product = await getProductFromId(id);
     product.qtd = 1;
+    const localStorageCounter = localStorage.getItem('Counter');
     this.setState({
       product,
-    }, () => this.addItemToCart);
+      counterListCart: localStorageCounter,
+    });
   }
 
   addNewProduct = (productInfo) => {
     this.setState((prevState) => ({
       listCart: [...prevState.listCart, productInfo],
-      counterListCart: prevState.counterListCart + 1,
+      counterListCart: +prevState.counterListCart + 1,
     }), () => {
-      const { listCart } = this.state;
+      const { listCart, counterListCart } = this.state;
       localStorage.setItem('cartItems', JSON.stringify(listCart));
+      localStorage.setItem('Counter', JSON.stringify(counterListCart));
     });
   }
 
@@ -41,10 +44,12 @@ class ProductDetails extends React.Component {
     });
     this.setState((prevState) => ({
       listCart: newList,
-      counterListCart: prevState.counterListCart + 1,
+      counterListCart: +prevState.counterListCart + 1,
     }),
     () => {
+      const { counterListCart } = this.state;
       localStorage.setItem('cartItems', JSON.stringify(newList));
+      localStorage.setItem('Counter', JSON.stringify(counterListCart));
     });
   }
 
@@ -62,11 +67,11 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product, counterListCart } = this.state;
-    console.log(product);
+    const getCounter = JSON.parse(localStorage.getItem('Counter'));
     return (
       <div>
         <Header
-          counterListCart={ counterListCart }
+          counterListCart={ getCounter > counterListCart ? getCounter : counterListCart }
         />
         <div data-testid="product-detail-name" className="product-detail-container">
           <img src={ product.thumbnail } alt="imagem do produto" />
