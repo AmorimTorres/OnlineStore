@@ -5,7 +5,7 @@ import AddCartButton from './AddCartButton';
 
 class Card extends Component {
   render() {
-    const { id, title, price, thumbnail, addItemToCart } = this.props;
+    const { id, title, price, thumbnail, addItemToCart, freeShipping } = this.props;
     const NUMBER_LENGTH = 40;
     return (
 
@@ -25,6 +25,11 @@ class Card extends Component {
           <p className="card-price">
             {price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
+
+          { freeShipping ? (
+            <span data-testid="free-shipping">Frete Grátis</span>
+          ) : null}
+
         </Link>
         <AddCartButton
           id={ id }
@@ -41,6 +46,7 @@ Card.propTypes = {
   thumbnail: PropTypes.string,
   addItemToCart: PropTypes.func,
   id: PropTypes.string,
+  freeShipping: PropTypes.bool,
 };
 
 Card.defaultProps = {
@@ -49,6 +55,7 @@ Card.defaultProps = {
   thumbnail: '',
   addItemToCart: () => {},
   id: '',
+  freeShipping: '',
 };
 
 export default Card;
