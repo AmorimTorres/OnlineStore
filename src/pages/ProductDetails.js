@@ -68,7 +68,7 @@ class ProductDetails extends React.Component {
   render() {
     const {
       product,
-      product: { shipping: free_shipping },
+      product: { shipping },
       counterListCart,
     } = this.state;
 
@@ -94,11 +94,11 @@ class ProductDetails extends React.Component {
               <strong>cartão de crédito</strong>
             </p>
 
-            { free_shipping ? (
+            { shipping && shipping.free_shipping && (
               <p data-testid="free-shipping">
                 <strong>Frete Grátis</strong>
               </p>
-            ) : null}
+            )}
 
             <button
               data-testid="product-detail-add-to-cart"

@@ -26,9 +26,9 @@ class Card extends Component {
             {price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
           </p>
 
-          { freeShipping ? (
+          { freeShipping && (
             <span data-testid="free-shipping">Frete Grátis</span>
-          ) : null}
+          )}
 
         </Link>
         <AddCartButton
