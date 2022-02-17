@@ -6,6 +6,7 @@ import './Home.css';
 import Header from '../Components/Hearder';
 import Footer from '../Components/Footer';
 import InputSearch from '../Components/InputSearch';
+import setLocalStorage from '../helpers/setLocalStorage';
 
 class Home extends React.Component {
   state = {
@@ -58,8 +59,7 @@ class Home extends React.Component {
       counterListCart: prevState.counterListCart + 1,
     }), () => {
       const { listCart, counterListCart } = this.state;
-      localStorage.setItem('cartItems', JSON.stringify(listCart));
-      localStorage.setItem('Counter', JSON.stringify(counterListCart));
+      setLocalStorage(listCart, counterListCart);
     });
   }
 
@@ -75,9 +75,8 @@ class Home extends React.Component {
       counterListCart: prevState.counterListCart + 1,
     }),
     () => {
-      const { counterListCart } = this.state;
-      localStorage.setItem('cartItems', JSON.stringify(newList));
-      localStorage.setItem('Counter', JSON.stringify(counterListCart));
+      const { listCart, counterListCart } = this.state;
+      setLocalStorage(listCart, counterListCart);
     });
   }
 
