@@ -127,7 +127,13 @@ class Home extends React.Component {
               <div>
                 { results.length > 0 ? (
                   <div className="home-card-wrapper">
-                    {results.map(({ id, title, price, thumbnail }) => (
+                    {results.map(({
+                      id,
+                      title,
+                      price,
+                      thumbnail,
+                      shipping: { free_shipping: freeShipping },
+                    }) => (
                       <Card
                         key={ id }
                         id={ id }
@@ -135,6 +141,7 @@ class Home extends React.Component {
                         price={ price }
                         thumbnail={ thumbnail }
                         addItemToCart={ this.addItemToCart }
+                        freeShipping={ freeShipping }
                       />
                     ))}
                   </div>

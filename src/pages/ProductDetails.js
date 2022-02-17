@@ -66,7 +66,12 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { product, counterListCart } = this.state;
+    const {
+      product,
+      product: { shipping },
+      counterListCart,
+    } = this.state;
+
     const getCounter = JSON.parse(localStorage.getItem('Counter'));
     return (
       <div>
@@ -88,6 +93,13 @@ class ProductDetails extends React.Component {
               {' '}
               <strong>cartão de crédito</strong>
             </p>
+
+            { shipping && shipping.free_shipping && (
+              <p data-testid="free-shipping">
+                <strong>Frete Grátis</strong>
+              </p>
+            )}
+
             <button
               data-testid="product-detail-add-to-cart"
               type="button"
@@ -98,12 +110,6 @@ class ProductDetails extends React.Component {
 
             </button>
           </div>
-          {/* <Link
-            to={ { pathname: '/cart' } }
-            data-testid="shopping-cart-button"
-          >
-            <button type="button">Veja Seu carrinho</button>
-          </Link> */}
         </div>
 
         <EvaluationForm />
