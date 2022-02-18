@@ -22,7 +22,9 @@ class EvaluationForm extends Component {
 
   submitEvaluationForm = (event) => {
     event.preventDefault();
+    console.log(this.state);
     evaluations.push(this.state);
+    console.log(evaluations);
     localStorage.setItem('evaluations', JSON.stringify(evaluations));
     this.setState({ ...obj });
   }

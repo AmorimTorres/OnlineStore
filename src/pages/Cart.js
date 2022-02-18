@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ItemsCart from '../Components/ItemsCart';
 import Header from '../Components/Hearder';
 import Footer from '../Components/Footer';
+import setLocalStorage from '../helpers/setLocalStorage';
 import './Cart.css';
 
 class Cart extends React.Component {
@@ -33,48 +34,56 @@ class Cart extends React.Component {
   }
 
   addQtd = (productId) => {
-    const { results } = this.state;
+    const { results, counterListCart } = this.state;
     const newList = results.map((item) => {
       if (item.id === productId) {
         item.qtd += 1;
       }
       return item;
     });
-    this.setState({ results: newList },
-      () => {
-        localStorage.setItem('cartItems', JSON.stringify(results));
-        this.calculateTotalCartValue();
-      });
+    this.setState((prevState) => ({
+      results: newList,
+      counterListCart: prevState.counterListCart + 1,
+    }),
+    () => {
+      setLocalStorage(results, counterListCart);
+      this.calculateTotalCartValue();
+    });
   }
 
   subQtd = (productId) => {
-    const { results } = this.state;
+    const { results, counterListCart } = this.state;
     const newList = results.map((item) => {
       if (item.id === productId && item.qtd > 1) {
         item.qtd -= 1;
       }
       return item;
     });
-    this.setState({ results: newList },
-      () => {
-        localStorage.setItem('cartItems', JSON.stringify(results));
-        this.calculateTotalCartValue();
-      });
+    this.setState((prevState) => ({
+      results: newList,
+      counterListCart: prevState.counterListCart - 1,
+    }),
+    () => {
+      setLocalStorage(results, counterListCart);
+      this.calculateTotalCartValue();
+    });
   }
 
   removeProduct = (productId) => {
-    const { results } = this.state;
+    const { results, counterListCart } = this.state;
     const newList = results.filter(({ id }) => id !== productId);
-    this.setState({ results: newList },
-      () => {
-        localStorage.setItem('cartItems', JSON.stringify(newList));
-        this.calculateTotalCartValue();
-      });
+    this.setState(() => ({
+      results: newList,
+      counterListCart: newList.reduce((prev, acc) => prev + acc.qtd, 0),
+    }),
+    () => {
+      setLocalStorage(results, counterListCart);
+      this.calculateTotalCartValue();
+    });
   }
 
   render() {
     const { results, totalCartValue, counterListCart } = this.state;
-    console.log(typeof counterListCart);
     return (
       <div className="page-cart">
         <Header
