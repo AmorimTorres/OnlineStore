@@ -86,14 +86,16 @@ class ClosePurchase extends Component {
             <input type="text" placeholder="Complemento" required />
             <input type="text" placeholder="Número" required />
             <input type="text" placeholder="Cidade" required />
-            <label htmlFor="state">
-              <select id="state" value={ value } onChange={ this.handleChange }>
-                <option value="Estado" disabled> Estado </option>
-                {
-                  uf.map((elem) => <option key={ elem }>{ elem }</option>)
-                }
-              </select>
-            </label>
+            <select id="state" value={ value } onChange={ this.handleChange }>
+              <option value="Estado" disabled>
+                Estado
+              </option>
+              { uf.map((elem) => (
+                <option key={ elem }>
+                  { elem }
+                </option>
+              ))}
+            </select>
           </fieldset>
           <fieldset>
             <legend>Método de Pagamento</legend>
